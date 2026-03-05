@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday Ernanda 🎂</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --rose: #f25c84;
+      --blush: #ffd6e7;
+      --gold: #e8b86d;
+      --cream: #fff9f3;
+      --dark: #1a0a12;
+      --lilac: #c89bd1;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* ── CONFETTI CANVAS ── */
+    #confetti-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* ── BACKGROUND ── */
+    .bg {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 10% 20%, #ffd6e766 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 90% 80%, #c89bd133 0%, transparent 55%),
+        radial-gradient(ellipse 50% 40% at 50% 50%, #f25c8411 0%, transparent 70%),
+        var(--cream);
+      z-index: 0;
+    }
+
+    /* ── FLOATING PETALS ── */
+    .petal {
+      position: fixed;
+      width: 10px; height: 14px;
+      border-radius: 0 50% 0 50%;
+      opacity: 0;
+      animation: fall linear infinite;
+      z-index: 1;
+    }
+    @keyframes fall {
+      0%   { transform: translateY(-40px) rotate(0deg); opacity: 0; }
+      10%  { opacity: .7; }
+      90%  { opacity: .5; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .page {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 24px 80px;
+      gap: 0;
+    }
+
+    /* ── AGE BADGE ── */
+    .age-badge {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(7rem, 22vw, 15rem);
+      font-weight: 700;
+      line-height: 1;
+      color: transparent;
+      -webkit-text-stroke: 2px var(--rose);
+      letter-spacing: -4px;
+      opacity: 0;
+      transform: scale(.85);
+      animation: popIn .9s cubic-bezier(.34,1.56,.64,1) .2s forwards;
+      user-select: none;
+    }
+
+    @keyframes popIn {
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 4px 0 20px;
+      opacity: 0;
+      animation: fadeUp .7s ease .8s forwards;
+    }
+    .divider-line {
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold));
+    }
+    .divider-line.right {
+      background: linear-gradient(to left, transparent, var(--gold));
+    }
+    .divider-star {
+      color: var(--gold);
+      font-size: 1.1rem;
+    }
+
+    /* ── MAIN HEADING ── */
+    .heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 8vw, 5.5rem);
+      font-weight: 400;
+      font-style: italic;
+      text-align: center;
+      line-height: 1.1;
+      opacity: 0;
+      animation: fadeUp .8s ease 1s forwards;
+    }
+    .heading em {
+      font-style: normal;
+      color: var(--rose);
+      font-weight: 700;
+    }
+
+    /* ── MESSAGE ── */
+    .message {
+      max-width: 520px;
+      text-align: center;
+      font-size: clamp(.95rem, 2.5vw, 1.1rem);
+      font-weight: 300;
+      line-height: 1.8;
+      color: #5a3345;
+      margin-top: 28px;
+      opacity: 0;
+      animation: fadeUp .8s ease 1.3s forwards;
+    }
+
+    /* ── POEM ── */
+    .poem {
+      max-width: 480px;
+      margin-top: 44px;
+      padding: 36px 40px;
+      background: linear-gradient(135deg, #fff0f655, #f3e8ff44);
+      border: 1px solid #f25c8433;
+      border-radius: 20px;
+      text-align: center;
+      opacity: 0;
+      animation: fadeUp .8s ease 1.6s forwards;
+      position: relative;
+    }
+    .poem::before, .poem::after {
+      content: '❧';
+      position: absolute;
+      color: var(--gold);
+      font-size: 1.3rem;
+      opacity: .6;
+    }
+    .poem::before { top: 14px; left: 20px; }
+    .poem::after  { bottom: 14px; right: 20px; transform: rotate(180deg); }
+
+    .poem-lines {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(.95rem, 2.6vw, 1.15rem);
+      line-height: 2;
+      color: #5a3345;
+    }
+    .poem-lines span {
+      display: block;
+    }
+    .poem-lines .indent { padding-left: 2em; }
+    .poem-attr {
+      margin-top: 20px;
+      font-size: .78rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--lilac);
+    }
+
+    /* ── FOOTER ── */
+    .footer-note {
+      margin-top: 60px;
+      font-size: .78rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--lilac);
+      opacity: 0;
+      animation: fadeUp .6s ease 2s forwards;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 480px) {
+      .candles { gap: 12px; }
+      .candle-body { height: 36px; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="confetti-canvas"></canvas>
+  <div class="bg"></div>
+
+  <!-- Floating petals -->
+  <div id="petals"></div>
+
+  <main class="page">
+
+    <span class="age-badge">24</span>
+
+    <div class="divider">
+      <div class="divider-line"></div>
+      <span class="divider-star">✦</span>
+      <span class="divider-star" style="color:var(--rose)">✦</span>
+      <span class="divider-star">✦</span>
+      <div class="divider-line right"></div>
+    </div>
+
+    <h1 class="heading">
+      Happy Birthday,<br>
+      <em>Ernanda</em>
+    </h1>
+
+    <p class="message">
+      Today the world is a little brighter because you're in it.<br>
+      May this new year of your life be filled with joy, magic,<br>
+      and every dream you've ever wished upon a star. 🌟
+    </p>
+
+    <!-- Poem -->
+    <div class="poem">
+      <div class="poem-lines">
+        <span>Another year, a turning page,</span>
+        <span class="indent">a softer light, a wiser sage —</span>
+        <span>not older, no, but more in bloom,</span>
+        <span class="indent">like roses filling up a room.</span>
+        <span>&nbsp;</span>
+        <span>May every wish you dare to keep</span>
+        <span class="indent">rise like dawn from restful sleep,</span>
+        <span>and every joy you've yet to know</span>
+        <span class="indent">find you, Ernanda, and never go.</span>
+      </div>
+      <p class="poem-attr">— for you, on your birthday ✦</p>
+    </div>
+
+    <p class="footer-note">✦ &nbsp; with lots of love &nbsp; ✦</p>
+  </main>
+
+  <script>
+    /* ── PETALS ── */
+    const petalContainer = document.getElementById('petals');
+    const petalColors = ['#f25c84','#ffd6e7','#c89bd1','#f9b8cc','#e8b86d'];
+    for (let i = 0; i < 18; i++) {
+      const p = document.createElement('div');
+      p.className = 'petal';
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.background = petalColors[i % petalColors.length];
+      p.style.animationDuration = (6 + Math.random() * 8) + 's';
+      p.style.animationDelay = (Math.random() * 12) + 's';
+      p.style.transform = `scale(${0.6 + Math.random() * 0.8})`;
+      petalContainer.appendChild(p);
+    }
+
+    /* ── CONFETTI ── */
+    const canvas = document.getElementById('confetti-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    const COLORS = ['#f25c84','#e8b86d','#c89bd1','#ffd166','#a8dadc','#fff9f3','#f9b8cc'];
+    const pieces = [];
+
+    class Piece {
+      constructor() { this.reset(true); }
+      reset(init) {
+        this.x = Math.random() * canvas.width;
+        this.y = init ? Math.random() * canvas.height - canvas.height : -12;
+        this.r = 4 + Math.random() * 6;
+        this.d = 1.2 + Math.random() * 2;
+        this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+        this.tilt = (Math.random() * 20) - 10;
+        this.tiltInc = .15 + Math.random() * .1;
+        this.angle = Math.random() * Math.PI * 2;
+        this.shape = Math.random() > .5 ? 'rect' : 'circle';
+      }
+      update() {
+        this.angle += this.tiltInc;
+        this.tilt = Math.sin(this.angle) * 14;
+        this.y += this.d;
+        this.x += Math.sin(this.angle) * .6;
+        if (this.y > canvas.height + 20) this.reset(false);
+      }
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.tilt * Math.PI / 180);
+        ctx.fillStyle = this.color;
+        ctx.globalAlpha = .85;
+        ctx.beginPath();
+        if (this.shape === 'rect') {
+          ctx.fillRect(-this.r / 2, -this.r / 2, this.r, this.r * 1.6);
+        } else {
+          ctx.arc(0, 0, this.r / 2, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    for (let i = 0; i < 110; i++) pieces.push(new Piece());
+
+    let frameCount = 0;
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      pieces.forEach(p => { p.update(); p.draw(); });
+      frameCount++;
+      // slow down confetti after 8 seconds
+      if (frameCount < 480) {
+        requestAnimationFrame(animate);
+      } else {
+        // fade out
+        let alpha = 1;
+        function fadeOut() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.globalAlpha = alpha;
+          pieces.forEach(p => { p.update(); p.draw(); });
+          alpha -= .008;
+          if (alpha > 0) requestAnimationFrame(fadeOut);
+          else ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+        fadeOut();
+      }
+    }
+    // start confetti with a small delay for dramatic effect
+    setTimeout(animate, 600);
+  </script>
+</body>
+</html>
